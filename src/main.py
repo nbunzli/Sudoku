@@ -1,6 +1,9 @@
 from sudoku_solver import SudokuSolver
 import time
+import os
 
+# Example of using the SudokuSolver class to read a puzzle from a file and solve it.
+# Also reports the execution time of the solve function.
 def solve_sudoku(file_path: str) -> None:
 	print(f'Solving sudoku at file path: {file_path}')
 	solver = SudokuSolver()
@@ -15,9 +18,8 @@ def solve_sudoku(file_path: str) -> None:
 	print('*****************************************************************')
 	print('*****************************************************************')
 
-solve_sudoku('../data/empty_grid.txt')
-solve_sudoku('../data/15_clues_no_solution.txt')
-solve_sudoku('../data/60_clues_144_solutions.txt')
-solve_sudoku('../data/23_clues_1_solution.txt')
-solve_sudoku('../data/25_clues_1_solution.txt')
-solve_sudoku('../data/29_clues_1_solution.txt')
+
+# Run the solver for each file in the data directory
+directory_path = '../data/'
+for filename in os.listdir(directory_path):
+	solve_sudoku(directory_path + filename)

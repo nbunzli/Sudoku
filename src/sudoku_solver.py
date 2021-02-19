@@ -18,9 +18,9 @@ class SudokuSolver:
 	# Example: 050079000000000500092000060080000407020600010070250080000040000008020000730001000
 	def init_grid_from_string(self, grid_string: str) -> None:
 		self.grid = []
-		assert len(grid_string) == 81
+		assert len(grid_string) == 81, 'Input string must be of length 81'
 		for s in grid_string:
-			assert s.isnumeric()
+			assert s.isnumeric(), 'Input string must only contain digits 0-9'
 			self.grid.append(int(s))
 
 	# File can contain only numbers and newlines, no other whitespace.
