@@ -9,7 +9,14 @@ class SudokuSolver:
 	solution_limit = 2
 
 	def __init__(self):
+		# The grid is stored as a single list of ints. The cell at coordinates (row, column)
+		# will be located at index = (row * 9) + column.
 		self.grid = []
+
+		# Will store the legal values of each empty cell. Uses the same indexing method as grid.
+		self.legal_values = []
+		
+		# Solution count. -1 indicates that solve has not been called yet.
 		self.solutions = -1
 
 	# String must be completely numeric with length 81, no newlines or other whitespace.
@@ -116,8 +123,27 @@ class SudokuSolver:
 	# The solution is not stored, ie after execution the grid will be back in the unsolved state.
 	def solve(self) -> None:
 		self.solutions = 0
+		self.__find_legal_values()
 		self.__solve_recursive()
 		self.print_solution_count()
+
+	# Finds the legal values of each empty cell and stores them in the legal_values list.
+	def __find_legal_values(self) -> None:
+		self.legal_values = [[] for i in range(81)]
+		for row in range(9):
+			for column in range(9):
+				if self.get_cell(row, column) == 0:
+					# Found a zero. Now find all legal values.
+					legal_cell_values = []
+					for value in range(1, 10):
+						self.set_cell(row, column, value)
+						if self.is_cell_valid(row, column):
+							# This digit is valid, append to list.
+							legal_cell_values.append(value)
+					# Add this cell's list to the outer list and reset the cell to zero.
+					index = (row * 9) + column
+					self.legal_values[index] = legal_cell_values
+					self.set_cell(row, column, 0)
 
 	# This is where the main solve logic is. It is a brute force recursive method of finding
 	# solutions. It works by going through the grid and every time a zero is encountered,
@@ -137,7 +163,8 @@ class SudokuSolver:
 			for column in range(9):
 				if self.get_cell(row, column) == 0:
 					# Found a zero. Now try setting it to each digit 1-9.
-					for value in range(1, 10):
+					index = (row * 9) + column
+					for value in self.legal_values[index]:
 						self.set_cell(row, column, value)
 						if self.is_cell_valid(row, column):
 							# This digit is valid. Now recursively keep solving.
