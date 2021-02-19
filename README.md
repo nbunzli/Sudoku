@@ -36,3 +36,6 @@ Using the example input data above, the following output is produced.
 ---------
 This sudoku has a unique solution.
 ```
+
+# Implementation Details
+The solve function uses a brute force recursive method of finding solutions. It works by going through the grid and every time a zero is encountered, setting it to each possible value and checking if the grid is still valid. If so, it calls the function recursively and continues searching for the next zero. When the grid becomes invalid, the recursion just unwinds and keeps going, eventually exhausting all possible solutions. The reason for using a brute force approach is for correctness/completeness. Although many sudoku puzzles are solvable by simple strategies (eg there is only one place in this box for a 1), advanced sudokus often require more complex strategies (eg x-wing, swordfish). And even if these advanced strategies were implemented, it would be difficult to determine if the algorithm was correct for every type of puzzle.
