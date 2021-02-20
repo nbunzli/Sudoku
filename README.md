@@ -1,6 +1,9 @@
 # Sudoku
 Sudoku solver written in Python 3.9.1. Includes functionality for reading a sudoku puzzle from a file, finding the solution if it exists, and determining whether that solution is unique.
 
+# Execution
+To execute, simply run main.py. This script will open and solve each sudoku puzzle in the data directory. Alternatively, the sudoku_solver.py module can be imported into other projects.
+
 # Input Format
 Input files must only contain the digits 0-9 and newlines. A value of zero indicates an empty grid cell.
 ```
